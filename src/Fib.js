@@ -5,17 +5,18 @@ function FibForm() {
   const [formData, _setFormData] = useState({
     input: '',
     working: false,
-    result: null
+    result: null,
+    error: null
   });
 
   const setFormData = (newData) => {
-    _setFormData({ ...formData, ...newData })
+    _setFormData({ ...formData, result: null, error: null, ...newData })
   }
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setFormData({ working: true, result: null })
+    setFormData({ working: true })
 
     try {
       const response = await fetch(
@@ -29,9 +30,15 @@ function FibForm() {
 
       const data = await response.json();
       console.log(data)
-      setFormData({ working: false, result: data.body.result })
+
+      if (data.body?.result) {
+        setFormData({ working: false, result: data.body.result })
+      } else {
+        setFormData({ working: false, error: data.body.error })
+      }
+
     } catch (error) {
-      setFormData({ working: false, result: 'ERROR' })
+      setFormData({ working: false, error })
       console.error('Error during fetch:', error);
     }
   };
@@ -54,8 +61,10 @@ function FibForm() {
           <button type="submit" className='button'> SUBMIT </button>
         </div>
 
-        {formData.result && <div className='result-box'>The next highest digit of Fibonacci is {formData.result}</div>}
       </form>
+
+      { formData.result && <div className='result-box'>The next highest digit of Fibonacci is { formData.result }</div> }
+      { formData.error && <div className='error-box'>{ formData.error }</div> }
     </div>
   );
 }

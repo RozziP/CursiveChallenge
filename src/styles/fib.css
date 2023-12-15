@@ -7,6 +7,7 @@ body {
 .content {
   background-color: #d1ccbd;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -20,6 +21,7 @@ form {
 }
 
 .form-group {
+  margin-top: 1vh;
   margin-bottom: 1vh;
 }
 
@@ -89,7 +91,25 @@ form {
   animation: swipe 2000ms forwards;
   font-size: calc(1vh + 1vw);
   font-family: inherit;
-  color: inherit
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-box {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: swipe 500ms forwards;
+  font-size: calc(1vh + 1vw);
+  font-family: inherit;
+  color: rgb(157, 47, 47);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes swipe {
@@ -98,6 +118,7 @@ form {
   }
 
   to {
-    width: 101%;
+    width: 100%;
   }
 }
+
